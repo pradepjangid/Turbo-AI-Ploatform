@@ -1,19 +1,20 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
-import { ThemeToggle } from "@/components/theme-toggle"
-import { SettingsDialog } from "@/components/settings/settings-dialog"
-import { Brain, Menu, Settings } from "lucide-react"
+import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { SettingsDialog } from "@/components/settings/settings-dialog";
+import { Brain, Menu, Settings } from "lucide-react";
+import { UserProfileDropdown } from "../profile/user-profile-dropdown";
 
 interface HeaderProps {
-  onMenuToggle: () => void
-  isSidebarOpen: boolean
+  onMenuToggle: () => void;
+  isSidebarOpen: boolean;
 }
 
 export function Header({ onMenuToggle, isSidebarOpen }: HeaderProps) {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 animate-fade-in">
-      <div className="container flex h-12 sm:h-14 items-center px-3 sm:px-4">
+      <div className=" justify-between w-full flex h-12 sm:h-14 items-center px-3 sm:px-4">
         <div className="flex items-center gap-2 sm:gap-4">
           <Button
             variant="ghost"
@@ -46,8 +47,29 @@ export function Header({ onMenuToggle, isSidebarOpen }: HeaderProps) {
             </Button>
           </SettingsDialog>
           <ThemeToggle />
+          <UserProfileDropdown
+            user={{
+              name: "Turbo User",
+              email: "user@turboai.com",
+              isPro: false,
+            }}
+            credits={{
+              current: 5,
+              total: 10,
+              resetTime: "midnight UTC",
+            }}
+            workspaces={[
+              {
+                id: "1",
+                name: "Personal Workspace",
+                isFree: true,
+                isActive: true,
+              },
+              { id: "2", name: "Team Project", isFree: false, isActive: false },
+            ]}
+          />
         </div>
       </div>
     </header>
-  )
+  );
 }

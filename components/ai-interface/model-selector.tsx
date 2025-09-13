@@ -1,30 +1,38 @@
-"use client"
+"use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Badge } from "@/components/ui/badge"
-import { Separator } from "@/components/ui/separator"
-import { useAI } from "@/contexts/ai-context"
-import { Bot, Zap, AlertCircle } from "lucide-react"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { useAI } from "@/contexts/ai-context";
+import { Bot, Zap, AlertCircle } from "lucide-react";
 
 export function ModelSelector() {
-  const { state, dispatch } = useAI()
+  const { state, dispatch } = useAI();
 
   const handleModelChange = (modelId: string) => {
-    const selectedModel = state.models.find((m) => m.id === modelId)
+    const selectedModel = state.models.find((m) => m.id === modelId);
     if (selectedModel) {
-      dispatch({ type: "SELECT_MODEL", payload: selectedModel })
+      dispatch({ type: "SELECT_MODEL", payload: selectedModel });
     }
-  }
+  };
 
-  const availableModels = state.models.filter((model) => model.isAvailable)
+  const availableModels = state.models.filter((model) => model.isAvailable);
 
   return (
     <Card className="h-full animate-fade-in card-hover transition-all duration-300 hover:shadow-lg">
       <CardHeader className="pb-2 sm:pb-3">
         <CardTitle className="flex items-center gap-2 text-sm sm:text-base group">
           <Bot className="h-4 w-4 flex-shrink-0 transition-all duration-300 group-hover:text-accent group-hover:scale-110 group-hover:rotate-12" />
-          <span className="truncate transition-colors duration-200 group-hover:text-accent">AI Model</span>
+          <span className="truncate transition-colors duration-200 group-hover:text-accent">
+            AI Model
+          </span>
         </CardTitle>
       </CardHeader>
 
@@ -94,18 +102,22 @@ export function ModelSelector() {
 
               {/* Capabilities */}
               <div className="space-y-2">
-                <h5 className="text-xs font-medium text-muted-foreground">Capabilities</h5>
+                <h5 className="text-xs font-medium text-muted-foreground">
+                  Capabilities
+                </h5>
                 <div className="flex flex-wrap gap-1">
-                  {state.selectedModel.capabilities.slice(0, 4).map((capability, index) => (
-                    <Badge
-                      key={capability}
-                      variant="secondary"
-                      className="text-xs transition-all duration-200 hover:bg-accent hover:text-accent-foreground btn-hover-lift stagger-item"
-                      style={{ animationDelay: `${index * 0.1}s` }}
-                    >
-                      {capability}
-                    </Badge>
-                  ))}
+                  {state.selectedModel.capabilities
+                    .slice(0, 4)
+                    .map((capability, index) => (
+                      <Badge
+                        key={capability}
+                        variant="secondary"
+                        className="text-xs transition-all duration-200 hover:bg-accent hover:text-accent-foreground btn-hover-lift stagger-item"
+                        style={{ animationDelay: `${index * 0.1}s` }}
+                      >
+                        {capability}
+                      </Badge>
+                    ))}
                   {state.selectedModel.capabilities.length > 4 && (
                     <Badge
                       variant="outline"
@@ -121,16 +133,23 @@ export function ModelSelector() {
                 <div className="rounded-md bg-muted p-2 card-hover transition-all duration-300 hover:bg-accent/10 hover:shadow-sm group">
                   <div className="flex items-center gap-1 mb-1">
                     <Zap className="h-3 w-3 transition-all duration-200 group-hover:text-accent group-hover:scale-110" />
-                    <span className="font-medium transition-colors duration-200 group-hover:text-accent">Speed</span>
+                    <span className="font-medium transition-colors duration-200 group-hover:text-accent">
+                      Speed
+                    </span>
                   </div>
                   <div className="text-muted-foreground">
-                    {state.selectedModel.contextLength > 50000 ? "Fast" : "Very Fast"}
+                    {state.selectedModel.contextLength > 50000
+                      ? "Fast"
+                      : "Very Fast"}
                   </div>
                 </div>
                 <div className="rounded-md bg-muted p-2 card-hover transition-all duration-300 hover:bg-accent/10 hover:shadow-sm group">
-                  <div className="font-medium mb-1 transition-colors duration-200 group-hover:text-accent">Context</div>
+                  <div className="font-medium mb-1 transition-colors duration-200 group-hover:text-accent">
+                    Context
+                  </div>
                   <div className="text-muted-foreground">
-                    {(state.selectedModel.contextLength / 1000).toFixed(0)}K tokens
+                    {(state.selectedModel.contextLength / 1000).toFixed(0)}K
+                    tokens
                   </div>
                 </div>
               </div>
@@ -139,5 +158,5 @@ export function ModelSelector() {
         )}
       </CardContent>
     </Card>
-  )
+  );
 }

@@ -3,6 +3,28 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Global scrollbar styling */
+* {
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: #3c4257 transparent; /* thumb color, transparent track for Firefox */
+}
+
+*::-webkit-scrollbar {
+  width: 10px; /* Thin scrollbar width */
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent; /* Hide the track by making it transparent */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #3c4257; /* Lighter thumb color matching the image */
+  border-radius: 3px; /* Slight rounding for the thumb */
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #4a5568; /* Slightly lighter on hover */
+}
 /* Updated color tokens to match design brief */
 :root {
   --background: #f1f5f9;
@@ -129,8 +151,7 @@
 
 /* Enhanced animations and transitions */
 * {
-  transition:
-    background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),

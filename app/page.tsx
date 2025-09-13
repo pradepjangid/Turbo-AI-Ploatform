@@ -16,35 +16,36 @@ export default function HomePage() {
 
   return (
     <AIProvider>
-      <div className="flex h-screen flex-col page-transition">
+      <div className="flex h-screen flex-col overflow-hidden">
         <KeyboardShortcuts />
         <ScreenReaderAnnouncements />
 
+        {/* Header full width */}
         <Header
           onMenuToggle={() => setSidebarOpen(!sidebarOpen)}
           isSidebarOpen={sidebarOpen}
         />
 
-        <div className="flex flex-1 overflow-auto ">
+        {/* Body below header */}
+        <div className="flex flex-1 overflow-hidden">
+          {/* Sidebar */}
           <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
+          {/* Main Content */}
           <main
-            className="flex-1 overflow-auto"
+            className="flex-1 overflow-y-auto bg-background smooth-scroll"
             role="main"
             aria-label="Turbo AI ⚡"
           >
             <div className="h-full p-2 sm:p-3 md:p-4">
               <div className="grid h-full gap-2 sm:gap-3 md:gap-4 xl:grid-cols-4">
-                {/* Left Panel - Model Selection and Parameters */}
+                {/* Left Panel */}
                 <aside
                   className="space-y-2 sm:space-y-3 md:space-y-4 xl:col-span-1 order-1 xl:order-1"
                   aria-label="Model configuration"
                 >
                   <section aria-labelledby="model-selector-heading">
-                    <h2
-                      id="model-selector-heading"
-                      className="sr-only text-foreground"
-                    >
+                    <h2 id="model-selector-heading" className="sr-only">
                       Model Selection
                     </h2>
                     <ModelSelector />
@@ -52,10 +53,7 @@ export default function HomePage() {
 
                   <div className="hidden md:block">
                     <section aria-labelledby="parameters-heading">
-                      <h2
-                        id="parameters-heading"
-                        className="sr-only text-foreground"
-                      >
+                      <h2 id="parameters-heading" className="sr-only">
                         Model Parameters
                       </h2>
                       <ParametersPanel />
@@ -63,18 +61,15 @@ export default function HomePage() {
                   </div>
                 </aside>
 
-                {/* Main Content Area */}
+                {/* Main Area */}
                 <div className="xl:col-span-3 order-2 xl:order-2 min-h-0">
                   <div className="grid h-full gap-2 sm:gap-3 md:gap-4 grid-rows-2 md:grid-rows-1 md:grid-cols-2 xl:grid-rows-2 xl:grid-cols-1">
                     {/* Prompt Editor */}
                     <section
                       aria-labelledby="prompt-editor-heading"
-                      className="row-span-1 md:col-span-1 xl:row-span-1 min-h-0 order-1 md:order-1 xl:order-1"
+                      className="row-span-1 md:col-span-1 xl:row-span-1 min-h-0"
                     >
-                      <h2
-                        id="prompt-editor-heading"
-                        className="sr-only text-foreground"
-                      >
+                      <h2 id="prompt-editor-heading" className="sr-only">
                         Prompt Editor
                       </h2>
                       <PromptEditor />
@@ -83,12 +78,9 @@ export default function HomePage() {
                     {/* Chat Output */}
                     <section
                       aria-labelledby="chat-output-heading"
-                      className="row-span-1 md:col-span-1 xl:row-span-1 min-h-0 order-2 md:order-2 xl:order-2"
+                      className="row-span-1 md:col-span-1 xl:row-span-1 min-h-0"
                     >
-                      <h2
-                        id="chat-output-heading"
-                        className="sr-only text-foreground"
-                      >
+                      <h2 id="chat-output-heading" className="sr-only">
                         Conversation Output
                       </h2>
                       <ChatOutput />

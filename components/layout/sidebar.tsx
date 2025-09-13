@@ -1,12 +1,18 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Separator } from "@/components/ui/separator"
-import { Badge } from "@/components/ui/badge"
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -17,22 +23,39 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import { useAI } from "@/contexts/ai-context"
-import { TemplateManager } from "@/components/ai-interface/template-manager"
-import { SettingsDialog } from "@/components/settings/settings-dialog"
-import { ChatHistoryDialog } from "@/components/chat-history/chat-history-dialog"
-import { cn } from "@/lib/utils"
-import { Bot, FileText, History, Settings, X, Download, Upload, Trash2, Database, Plus } from "lucide-react"
+} from "@/components/ui/alert-dialog";
+import { useAI } from "@/contexts/ai-context";
+import { TemplateManager } from "@/components/ai-interface/template-manager";
+import { SettingsDialog } from "@/components/settings/settings-dialog";
+import { ChatHistoryDialog } from "@/components/chat-history/chat-history-dialog";
+import { cn } from "@/lib/utils";
+import {
+  Bot,
+  FileText,
+  History,
+  Settings,
+  X,
+  Download,
+  Upload,
+  Trash2,
+  Database,
+  Plus,
+} from "lucide-react";
 
 interface SidebarProps {
-  isOpen: boolean
-  onClose: () => void
+  isOpen: boolean;
+  onClose: () => void;
 }
 
 export function Sidebar({ isOpen, onClose }: SidebarProps) {
-  const { state, saveConversation, loadConversation, clearAllData, startNewConversation } = useAI()
-  const [showTemplates, setShowTemplates] = useState(false)
+  const {
+    state,
+    saveConversation,
+    loadConversation,
+    clearAllData,
+    startNewConversation,
+  } = useAI();
+  const [showTemplates, setShowTemplates] = useState(false);
 
   return (
     <>
@@ -47,29 +70,28 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
       {/* Sidebar */}
       <aside
         className={cn(
-          "fixed left-0 top-14 z-50 h-[calc(100vh-3.5rem)] w-80 transform border-r bg-sidebar transition-all duration-300 ease-in-out md:relative md:top-0 md:h-full md:translate-x-0 sidebar-slide",
-          isOpen ? "translate-x-0 shadow-lg" : "-translate-x-full",
+          "fixed left-0 top-0 z-40 h-screen w-80 transform border-r bg-sidebar transition-transform duration-300 ease-in-out md:relative md:translate-x-0",
+          isOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
         <div className="flex h-full flex-col">
           {/* Mobile close button */}
-          <div className="flex items-center justify-between p-4 md:hidden animate-slide-in-left">
-            <h2 className="font-serif text-lg font-semibold text-sidebar-foreground">Navigation</h2>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={onClose}
-              className="btn-hover-lift hover:bg-destructive/10 hover:text-destructive"
-            >
-              <X className="h-4 w-4 transition-transform duration-200 hover:rotate-90" />
+          <div className="flex items-center justify-between p-4 md:hidden">
+            <h2 className="font-serif text-lg font-semibold text-sidebar-foreground">
+              Navigation
+            </h2>
+            <Button variant="ghost" size="sm" onClick={onClose}>
+              <X className="h-4 w-4" />
             </Button>
           </div>
 
-          <ScrollArea className="flex-1 px-4">
+          <ScrollArea className="flex overflow-y-auto px-4">
             <div className="space-y-6 py-4">
               {/* Quick Actions */}
               <div className="space-y-2 animate-fade-in">
-                <h3 className="text-sm font-medium text-sidebar-foreground/70">Quick Actions</h3>
+                <h3 className="text-sm font-medium text-sidebar-foreground/70">
+                  Quick Actions
+                </h3>
                 <Button
                   onClick={startNewConversation}
                   className="w-full justify-start btn-hover-lift transition-all duration-200 hover:bg-accent hover:text-accent-foreground animate-gentle-bounce"
@@ -102,24 +124,30 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                           {state.selectedModel.provider}
                         </Badge>
                       </div>
-                      <p className="text-xs text-muted-foreground">{state.selectedModel.description}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {state.selectedModel.description}
+                      </p>
                       <div className="flex flex-wrap gap-1">
-                        {state.selectedModel.capabilities.slice(0, 3).map((capability, index) => (
-                          <Badge
-                            key={capability}
-                            variant="outline"
-                            className="text-xs transition-all duration-200 hover:bg-accent/10 stagger-item"
-                            style={{ animationDelay: `${index * 0.1}s` }}
-                          >
-                            {capability}
-                          </Badge>
-                        ))}
+                        {state.selectedModel.capabilities
+                          .slice(0, 3)
+                          .map((capability, index) => (
+                            <Badge
+                              key={capability}
+                              variant="outline"
+                              className="text-xs transition-all duration-200 hover:bg-accent/10 stagger-item"
+                              style={{ animationDelay: `${index * 0.1}s` }}
+                            >
+                              {capability}
+                            </Badge>
+                          ))}
                       </div>
                     </div>
                   </Card>
                 ) : (
                   <Card className="p-3 card-hover">
-                    <p className="text-sm text-muted-foreground">No model selected</p>
+                    <p className="text-sm text-muted-foreground">
+                      No model selected
+                    </p>
                   </Card>
                 )}
               </div>
@@ -128,7 +156,9 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
 
               {/* Navigation */}
               <nav className="space-y-2 animate-slide-in-right">
-                <h3 className="text-sm font-medium text-sidebar-foreground/70">Navigation</h3>
+                <h3 className="text-sm font-medium text-sidebar-foreground/70">
+                  Navigation
+                </h3>
                 <div className="space-y-1">
                   <Sheet open={showTemplates} onOpenChange={setShowTemplates}>
                     <SheetTrigger asChild>
@@ -141,11 +171,14 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                         Templates
                       </Button>
                     </SheetTrigger>
-                    <SheetContent side="right" className="w-full sm:max-w-2xl animate-slide-in-right">
+                    <SheetContent
+                      side="right"
+                      className="w-full sm:max-w-2xl lg:max-w-3xl  animate-slide-in-right"
+                    >
                       <SheetHeader>
                         <SheetTitle>Template Manager</SheetTitle>
                       </SheetHeader>
-                      <div className="mt-6">
+                      <div className=" p-3">
                         <TemplateManager />
                       </div>
                     </SheetContent>
@@ -180,7 +213,9 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
 
               {/* Data Management */}
               <div className="space-y-2 animate-slide-in-left">
-                <h3 className="text-sm font-medium text-sidebar-foreground/70">Data Management</h3>
+                <h3 className="text-sm font-medium text-sidebar-foreground/70">
+                  Data Management
+                </h3>
                 <div className="space-y-1">
                   <Button
                     variant="ghost"
@@ -218,12 +253,15 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                       <AlertDialogHeader>
                         <AlertDialogTitle>Clear All Data</AlertDialogTitle>
                         <AlertDialogDescription>
-                          This will permanently delete all conversations, saved parameters, and preferences. This action
-                          cannot be undone.
+                          This will permanently delete all conversations, saved
+                          parameters, and preferences. This action cannot be
+                          undone.
                         </AlertDialogDescription>
                       </AlertDialogHeader>
                       <AlertDialogFooter>
-                        <AlertDialogCancel className="btn-hover-lift">Cancel</AlertDialogCancel>
+                        <AlertDialogCancel className="btn-hover-lift">
+                          Cancel
+                        </AlertDialogCancel>
                         <AlertDialogAction
                           onClick={clearAllData}
                           className="bg-destructive text-destructive-foreground hover:bg-destructive/90 btn-hover-lift"
@@ -239,8 +277,10 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
               <Separator className="animate-fade-in" />
 
               {/* Quick Stats */}
-              <div className="space-y-2 animate-slide-in-right">
-                <h3 className="text-sm font-medium text-sidebar-foreground/70">Session Stats</h3>
+              <div className="space-y-2 animate-slide-in-right mb-14">
+                <h3 className="text-sm font-medium text-sidebar-foreground/70">
+                  Session Stats
+                </h3>
                 <div className="grid grid-cols-2 gap-2 text-xs">
                   <div className="rounded-md bg-muted p-2 card-hover transition-all duration-200 hover:bg-accent/10">
                     <div className="font-medium transition-colors duration-200 hover:text-accent">
@@ -259,7 +299,9 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                 <div className="rounded-md bg-muted p-2 card-hover transition-all duration-200 hover:bg-accent/10">
                   <div className="flex items-center gap-2 text-xs">
                     <Database className="h-3 w-3 transition-transform duration-200 hover:scale-110" />
-                    <span className="text-muted-foreground">Auto-saved locally</span>
+                    <span className="text-muted-foreground">
+                      Auto-saved locally
+                    </span>
                   </div>
                 </div>
               </div>
@@ -268,5 +310,5 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
         </div>
       </aside>
     </>
-  )
+  );
 }
