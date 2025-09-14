@@ -80,9 +80,6 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
             <h2 className="font-serif text-lg font-semibold text-sidebar-foreground">
               Navigation
             </h2>
-            <Button variant="ghost" size="sm" onClick={onClose}>
-              <X className="h-4 w-4" />
-            </Button>
           </div>
 
           <ScrollArea className="flex overflow-y-auto px-4">

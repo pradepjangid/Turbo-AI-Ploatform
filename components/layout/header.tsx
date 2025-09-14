@@ -23,14 +23,16 @@ export function Header({ onMenuToggle, isSidebarOpen }: HeaderProps) {
             className="md:hidden h-8 w-8 p-0 btn-hover-lift focus-enhanced transition-all duration-200 hover:bg-accent/20"
             aria-label={isSidebarOpen ? "Close sidebar" : "Open sidebar"}
           >
-            <Menu className="h-4 w-4 transition-transform duration-200 hover:scale-110" />
+            <Menu
+              size={16}
+              className="h-6 w-6 transition-transform duration-200 hover:scale-110"
+            />
           </Button>
 
           <div className="flex items-center gap-2 group cursor-pointer">
             <Brain className="h-5 w-5 sm:h-6 sm:w-6 text-accent flex-shrink-0 transition-all duration-300 group-hover:text-accent/80 group-hover:rotate-12 group-hover:scale-110" />
             <h1 className="font-serif text-base sm:text-lg font-bold text-balance text-foreground truncate transition-colors duration-200 group-hover:text-accent">
-              <span className="hidden sm:inline">Turbo AI ⚡</span>
-              <span className="sm:hidden">AI Platform</span>
+              <span className="inline">Turbo AI ⚡</span>
             </h1>
           </div>
         </div>
