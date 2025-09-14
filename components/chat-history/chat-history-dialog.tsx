@@ -66,7 +66,6 @@ export function ChatHistoryDialog({
     SavedConversation[]
   >("ai-chat-history", []);
 
-  // Save current conversation to history
   const saveCurrentConversation = () => {
     if (state.messages.length === 0) return;
 
@@ -81,10 +80,9 @@ export function ChatHistoryDialog({
       messageCount: state.messages.length,
     };
 
-    setConversations((prev) => [newConversation, ...prev.slice(0, 49)]); // Keep max 50 conversations
+    setConversations((prev) => [newConversation, ...prev.slice(0, 49)]);
   };
 
-  // Generate conversation title from first user message
   const generateConversationTitle = (messages: ChatMessage[]): string => {
     const firstUserMessage = messages.find((m) => m.role === "user");
     if (firstUserMessage) {
@@ -94,21 +92,18 @@ export function ChatHistoryDialog({
     return `Conversation ${new Date().toLocaleDateString()}`;
   };
 
-  // Load conversation
   const loadConversation = (conversation: SavedConversation) => {
     dispatch({ type: "SET_MESSAGES", payload: conversation.messages });
     setOpen(false);
     onClose && onClose();
   };
 
-  // Delete conversation
   const deleteConversation = (conversationId: string) => {
     setConversations((prev) =>
       prev.filter((conv) => conv.id !== conversationId)
     );
   };
 
-  // Export conversation
   const exportConversation = (conversation: SavedConversation) => {
     const data = {
       ...conversation,
@@ -131,7 +126,6 @@ export function ChatHistoryDialog({
     URL.revokeObjectURL(url);
   };
 
-  // Filter conversations based on search
   const filteredConversations = conversations.filter(
     (conv) =>
       conv.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -141,7 +135,6 @@ export function ChatHistoryDialog({
       )
   );
 
-  // Format date
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     const now = new Date();
@@ -205,7 +198,6 @@ export function ChatHistoryDialog({
 
           <Separator />
 
-          {/* Conversations List */}
           <ScrollArea className="flex-1 min-h-0 overflow-y-auto h-[50vh]">
             {filteredConversations.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-8 sm:py-12 text-center px-4">
