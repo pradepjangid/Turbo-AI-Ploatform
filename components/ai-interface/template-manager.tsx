@@ -33,7 +33,13 @@ import { useAI } from "@/contexts/ai-context";
 import type { PromptTemplate } from "@/app/api/templates/route";
 import { Plus, Edit, Trash2, Save } from "lucide-react";
 
-export function TemplateManager() {
+export function TemplateManager({
+  setShowTemplates,
+  onClose,
+}: {
+  setShowTemplates?: (show: boolean) => void;
+  onClose?: () => void;
+}) {
   const { state, loadTemplate } = useAI();
 
   // Local state
@@ -324,7 +330,7 @@ export function TemplateManager() {
       </div>
 
       {/* TEMPLATE CARDS */}
-      <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 max-h-[75vh] overflow-y-auto">
+      <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 max-h-[57vh] md:max-h-[75vh] overflow-y-auto">
         {filteredTemplates.map((template) => (
           <Card key={template.id} className="hover:shadow-md transition-shadow">
             <CardHeader className="pb-2 sm:pb-3 flex justify-between items-start">
@@ -375,7 +381,11 @@ export function TemplateManager() {
               </div>
               <Button
                 className="w-full text-sm"
-                onClick={() => loadTemplate(template)}
+                onClick={() => {
+                  loadTemplate(template),
+                    setShowTemplates && setShowTemplates(false);
+                  onClose && onClose();
+                }}
               >
                 Use Template
               </Button>

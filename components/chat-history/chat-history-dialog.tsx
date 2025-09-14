@@ -52,9 +52,13 @@ interface SavedConversation {
 
 interface ChatHistoryDialogProps {
   children: React.ReactNode;
+  onClose?: () => void;
 }
 
-export function ChatHistoryDialog({ children }: ChatHistoryDialogProps) {
+export function ChatHistoryDialog({
+  children,
+  onClose,
+}: ChatHistoryDialogProps) {
   const { state, dispatch } = useAI();
   const [open, setOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -94,6 +98,7 @@ export function ChatHistoryDialog({ children }: ChatHistoryDialogProps) {
   const loadConversation = (conversation: SavedConversation) => {
     dispatch({ type: "SET_MESSAGES", payload: conversation.messages });
     setOpen(false);
+    onClose && onClose();
   };
 
   // Delete conversation

@@ -10,6 +10,7 @@ import { PromptEditor } from "@/components/ai-interface/prompt-editor";
 import { ChatOutput } from "@/components/ai-interface/chat-output";
 import { KeyboardShortcuts } from "@/components/accessibility/keyboard-shortcuts";
 import { ScreenReaderAnnouncements } from "@/components/accessibility/screen-reader-announcements";
+import MainChatInterface from "@/components/ai-interface/main-chat-conversation";
 
 export default function HomePage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -62,31 +63,7 @@ export default function HomePage() {
                 </aside>
 
                 {/* Main Area */}
-                <div className="xl:col-span-3 order-2 xl:order-2 min-h-0">
-                  <div className="grid h-full gap-2 sm:gap-3 md:gap-4 grid-rows-2 md:grid-rows-1 md:grid-cols-2 xl:grid-rows-2 xl:grid-cols-1">
-                    {/* Prompt Editor */}
-                    <section
-                      aria-labelledby="prompt-editor-heading"
-                      className="row-span-1 md:col-span-1 xl:row-span-1 min-h-0"
-                    >
-                      <h2 id="prompt-editor-heading" className="sr-only">
-                        Prompt Editor
-                      </h2>
-                      <PromptEditor />
-                    </section>
-
-                    {/* Chat Output */}
-                    <section
-                      aria-labelledby="chat-output-heading"
-                      className="row-span-1 md:col-span-1 xl:row-span-1 min-h-0"
-                    >
-                      <h2 id="chat-output-heading" className="sr-only">
-                        Conversation Output
-                      </h2>
-                      <ChatOutput />
-                    </section>
-                  </div>
-                </div>
+                <MainChatInterface />
               </div>
             </div>
           </main>

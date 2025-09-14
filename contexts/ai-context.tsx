@@ -317,14 +317,21 @@ export function AIProvider({ children }: { children: React.ReactNode }) {
     [state.selectedModel, state.messages, state.systemPrompt, state.parameters]
   );
 
-  const loadTemplate = useCallback((template: PromptTemplate) => {
-    dispatch({ type: "SET_CURRENT_PROMPT", payload: template.prompt });
-    dispatch({
-      type: "SET_SYSTEM_PROMPT",
-      payload: template.systemPrompt || "",
-    });
-    dispatch({ type: "UPDATE_PARAMETERS", payload: template.parameters });
-  }, []);
+  const loadTemplate = useCallback(
+    async (template: PromptTemplate) => {
+      dispatch({ type: "SET_CURRENT_PROMPT", payload: template.prompt });
+      dispatch({
+        type: "SET_SYSTEM_PROMPT",
+        payload: template.systemPrompt || "",
+      });
+      dispatch({ type: "UPDATE_PARAMETERS", payload: template.parameters });
+      if (template.prompt?.trim()) {
+        await sendMessage(template.prompt);
+        dispatch({ type: "SET_CURRENT_PROMPT", payload: "" });
+      }
+    },
+    [dispatch, sendMessage]
+  );
 
   const saveConversation = useCallback(() => {
     const conversationData = {

@@ -5,6 +5,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { SettingsDialog } from "@/components/settings/settings-dialog";
 import { Brain, Menu, Settings } from "lucide-react";
 import { UserProfileDropdown } from "../profile/user-profile-dropdown";
+import { useAI } from "@/contexts/ai-context";
 
 interface HeaderProps {
   onMenuToggle: () => void;
@@ -12,6 +13,7 @@ interface HeaderProps {
 }
 
 export function Header({ onMenuToggle, isSidebarOpen }: HeaderProps) {
+  const { startNewConversation } = useAI();
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 animate-fade-in">
       <div className=" justify-between w-full flex h-12 sm:h-14 items-center px-3 sm:px-4">
@@ -29,7 +31,10 @@ export function Header({ onMenuToggle, isSidebarOpen }: HeaderProps) {
             />
           </Button>
 
-          <div className="flex items-center gap-2 group cursor-pointer">
+          <div
+            onClick={() => startNewConversation()}
+            className="flex items-center gap-2 group cursor-pointer"
+          >
             <Brain className="h-5 w-5 sm:h-6 sm:w-6 text-accent flex-shrink-0 transition-all duration-300 group-hover:text-accent/80 group-hover:rotate-12 group-hover:scale-110" />
             <h1 className="font-serif text-base sm:text-lg font-bold text-balance text-foreground truncate transition-colors duration-200 group-hover:text-accent">
               <span className="inline">Turbo AI ⚡</span>

@@ -98,7 +98,14 @@ export function SettingsDialog({ children }: SettingsDialogProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="w-[95vw] max-w-2xl h-[90vh] overflow-hidden max-h-[90vh] sm:h-[85vh] sm:max-h-[90vh]">
+      <DialogContent
+        className="
+      w-[95vw] max-w-2xl 
+      h-[90vh] sm:h-[85vh] lg:h-[80vh] 
+      max-h-[90vh] overflow-hidden
+      flex flex-col
+    "
+      >
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-base sm:text-lg">
             <Settings className="h-4 w-4 sm:h-5 sm:w-5" />
@@ -106,10 +113,11 @@ export function SettingsDialog({ children }: SettingsDialogProps) {
           </DialogTitle>
         </DialogHeader>
 
-        <ScrollArea className="flex-1 pr-2 sm:pr-4  h-[90vh] sm:h-[60vh] mb-4">
-          <div className="space-y-4 sm:space-y-6">
+        {/* Scrollable content area */}
+        <ScrollArea className="flex-1 pr-2 sm:pr-4 mt-7">
+          <div className="space-y-4 sm:space-y-6 pb-4">
             {/* Appearance Settings */}
-            <Card>
+            <Card className="w-full">
               <CardHeader className="pb-2 sm:pb-3">
                 <CardTitle className="flex items-center gap-2 text-sm sm:text-base">
                   <Palette className="h-3 w-3 sm:h-4 sm:w-4" />
@@ -117,7 +125,8 @@ export function SettingsDialog({ children }: SettingsDialogProps) {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3 sm:space-y-4">
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0">
+                {/* Theme */}
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                   <div className="space-y-0.5">
                     <Label className="text-sm">Theme</Label>
                     <p className="text-xs sm:text-sm text-muted-foreground">
@@ -125,33 +134,31 @@ export function SettingsDialog({ children }: SettingsDialogProps) {
                     </p>
                   </div>
                   <Select value={theme} onValueChange={setTheme}>
-                    <SelectTrigger className="w-full sm:w-32">
+                    <SelectTrigger className="w-full sm:w-40">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="light">
                         <div className="flex items-center gap-2">
-                          <Sun className="h-4 w-4" />
-                          Light
+                          <Sun className="h-4 w-4" /> Light
                         </div>
                       </SelectItem>
                       <SelectItem value="dark">
                         <div className="flex items-center gap-2">
-                          <Moon className="h-4 w-4" />
-                          Dark
+                          <Moon className="h-4 w-4" /> Dark
                         </div>
                       </SelectItem>
                       <SelectItem value="system">
                         <div className="flex items-center gap-2">
-                          <Monitor className="h-4 w-4" />
-                          System
+                          <Monitor className="h-4 w-4" /> System
                         </div>
                       </SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
 
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0">
+                {/* Compact Mode */}
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                   <div className="space-y-0.5">
                     <Label className="text-sm">Compact Mode</Label>
                     <p className="text-xs sm:text-sm text-muted-foreground">
@@ -166,7 +173,8 @@ export function SettingsDialog({ children }: SettingsDialogProps) {
                   />
                 </div>
 
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0">
+                {/* Show Timestamps */}
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                   <div className="space-y-0.5">
                     <Label className="text-sm">Show Timestamps</Label>
                     <p className="text-xs sm:text-sm text-muted-foreground">
@@ -181,7 +189,8 @@ export function SettingsDialog({ children }: SettingsDialogProps) {
                   />
                 </div>
 
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0">
+                {/* Show Token Count */}
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                   <div className="space-y-0.5">
                     <Label className="text-sm">Show Token Count</Label>
                     <p className="text-xs sm:text-sm text-muted-foreground">
@@ -199,15 +208,16 @@ export function SettingsDialog({ children }: SettingsDialogProps) {
             </Card>
 
             {/* Performance Settings */}
-            <Card>
+            <Card className="w-full">
               <CardHeader className="pb-2 sm:pb-3">
                 <CardTitle className="flex items-center gap-2 text-sm sm:text-base">
                   <Zap className="h-3 w-3 sm:h-4 sm:w-4" />
                   Performance
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-3 sm:space-y-4">
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0">
+              <CardContent className="space-y-4">
+                {/* Auto Save */}
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                   <div className="space-y-0.5">
                     <Label className="text-sm">Auto-save Conversations</Label>
                     <p className="text-xs sm:text-sm text-muted-foreground">
@@ -222,6 +232,7 @@ export function SettingsDialog({ children }: SettingsDialogProps) {
                   />
                 </div>
 
+                {/* Max History Items */}
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <Label className="text-sm">Max History Items</Label>
@@ -244,6 +255,7 @@ export function SettingsDialog({ children }: SettingsDialogProps) {
                   </p>
                 </div>
 
+                {/* Default Temperature */}
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <Label className="text-sm">Default Temperature</Label>
@@ -268,16 +280,16 @@ export function SettingsDialog({ children }: SettingsDialogProps) {
               </CardContent>
             </Card>
 
-            {/* Privacy & Data Settings */}
-            <Card>
+            {/* Privacy & Data */}
+            <Card className="w-full">
               <CardHeader className="pb-2 sm:pb-3">
                 <CardTitle className="flex items-center gap-2 text-sm sm:text-base">
                   <Shield className="h-3 w-3 sm:h-4 sm:w-4" />
                   Privacy & Data
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-3 sm:space-y-4">
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0">
+              <CardContent className="space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                   <div className="space-y-0.5">
                     <Label className="text-sm">Auto-export Conversations</Label>
                     <p className="text-xs sm:text-sm text-muted-foreground">
@@ -307,16 +319,17 @@ export function SettingsDialog({ children }: SettingsDialogProps) {
               </CardContent>
             </Card>
 
-            {/* Accessibility Settings */}
-            <Card>
+            {/* Accessibility */}
+            <Card className="w-full">
               <CardHeader className="pb-2 sm:pb-3">
                 <CardTitle className="flex items-center gap-2 text-sm sm:text-base">
                   <Keyboard className="h-3 w-3 sm:h-4 sm:w-4" />
                   Accessibility
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-3 sm:space-y-4">
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0">
+              <CardContent className="space-y-4">
+                {/* Shortcuts */}
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                   <div className="space-y-0.5">
                     <Label className="text-sm">Keyboard Shortcuts</Label>
                     <p className="text-xs sm:text-sm text-muted-foreground">
@@ -331,7 +344,8 @@ export function SettingsDialog({ children }: SettingsDialogProps) {
                   />
                 </div>
 
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0">
+                {/* Sounds */}
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                   <div className="space-y-0.5">
                     <Label className="text-sm">Sound Effects</Label>
                     <p className="text-xs sm:text-sm text-muted-foreground">
@@ -349,7 +363,7 @@ export function SettingsDialog({ children }: SettingsDialogProps) {
                 <div className="rounded-lg border p-3 bg-muted/50">
                   <div className="space-y-2 text-xs">
                     <div className="font-medium">Keyboard Shortcuts:</div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 sm:gap-2 text-xs">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                       <div>Ctrl + Enter: Send message</div>
                       <div>Ctrl + /: Focus prompt</div>
                       <div>Ctrl + K: Open templates</div>
@@ -364,11 +378,12 @@ export function SettingsDialog({ children }: SettingsDialogProps) {
 
         <Separator />
 
-        <div className="flex flex-col sm:flex-row justify-between gap-2 sm:gap-0">
+        {/* Footer Actions */}
+        <div className="flex flex-col sm:flex-row justify-between gap-2 pt-3">
           <Button
             variant="outline"
             onClick={resetSettings}
-            className="w-full sm:w-auto bg-transparent"
+            className="w-full sm:w-auto"
           >
             Reset to Defaults
           </Button>

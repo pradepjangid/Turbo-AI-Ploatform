@@ -57,6 +57,11 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
   } = useAI();
   const [showTemplates, setShowTemplates] = useState(false);
 
+  const handleImportChat = () => {
+    loadConversation();
+    onClose();
+  };
+
   return (
     <>
       {/* Mobile overlay */}
@@ -176,12 +181,15 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                         <SheetTitle>Template Manager</SheetTitle>
                       </SheetHeader>
                       <div className=" p-3">
-                        <TemplateManager />
+                        <TemplateManager
+                          setShowTemplates={setShowTemplates}
+                          onClose={onClose}
+                        />
                       </div>
                     </SheetContent>
                   </Sheet>
 
-                  <ChatHistoryDialog>
+                  <ChatHistoryDialog onClose={onClose}>
                     <Button
                       variant="ghost"
                       className="w-full justify-start text-sidebar-foreground hover:text-sidebar-foreground hover:bg-sidebar-accent btn-hover-lift transition-all duration-200 group"
@@ -229,7 +237,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                     variant="ghost"
                     className="w-full justify-start text-sidebar-foreground hover:text-sidebar-foreground hover:bg-sidebar-accent btn-hover-lift transition-all duration-200 group"
                     size="sm"
-                    onClick={loadConversation}
+                    onClick={handleImportChat}
                   >
                     <Upload className="mr-2 h-4 w-4 transition-transform duration-200 group-hover:-translate-y-1" />
                     Import Chat
